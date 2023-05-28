@@ -21,10 +21,13 @@
                 <p class="text-left">作成者: {{ lobby.user_name }}</p>
                 <p class="text-left">作成日時: {{ lobby.created_at }}</p>
                 <p class="text-left">参加人数: {{ lobby.participants }}</p>
-                <form action="join" method="POST">
-                    <input type="hidden" name="lobby_id" value="{{ lobby.id }}">
-                    <input type="submit" value="参加" class="border-2 border-gray-300 rounded-md p-2 m-2">
-                </form>
+                <!-- password is None -->
+                {% if lobby.password == None %}
+                    <p class="text-left">パスワード: 無し</p>
+                {% else %}
+                    <p class="text-left">パスワード: 有り</p>
+                {% endif %}
+                <a href="{{ lobby.url }}" class="border-2 border-gray-300 rounded-md p-2 my-4 block mx-auto w-[50%]">参加</a>
             </div>
         {% endfor %}
     </div>

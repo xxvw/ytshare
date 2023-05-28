@@ -1,6 +1,7 @@
 import flask
 from flask import Blueprint
 import json
+from src.lobbyManager import get_public_lobby_list
 
 index_root = Blueprint('index', __name__)
 
@@ -31,4 +32,4 @@ def index():
                 'id': 3
             }
         ]
-        return flask.render_template('index.html', public_lobbies=testlobbies)
+        return flask.render_template('index.html', public_lobbies=get_public_lobby_list())
