@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h1 class="mx-auto text-center text-3xl font-bold pb-12 pt-4">Youtube共有プレイヤー</h1>
+    <p class="mx-auto text-center text-xl font-bold">ロビーを作成</p>
+    <form action="create" method="POST" class="mx-auto text-center flex flex-col [&>input]:w-[35%] [&>input]:mx-auto">
+        <input type="text" name="lobby_name" placeholder="ロビー名" class="border-2 border-gray-300 rounded-md p-2 m-2">
+        <input type="text" name="user_name" placeholder="ユーザー名" class="border-2 border-gray-300 rounded-md p-2 m-2">
+        <input type="text" name="password" placeholder="パスワード(空白で無し)" class="border-2 border-gray-300 rounded-md p-2 m-2">
+        <div>
+            <label for="public" class="text-left">公開ロビーにする</label>
+            <input type="checkbox" name="public" id="public" class="m-2">
+        </div>
+        <input type="submit" value="作成" class="border-2 border-gray-300 rounded-md p-2 m-2">
+    </form>
+    <!-- 公開ロビー一覧 -->
+    <p class="mx-auto text-center text-xl font-bold mt-8">公開ロビー一覧</p>
+    <div class="mx-auto text-center flex flex-col [&>div]:w-full [&>div]:mx-auto overflow-y-auto h-[300px] w-[35%]">
+        {% for lobby in public_lobbies %}
+            <div class="border-2 border-gray-300 rounded-md p-2 m-2">
+                <p class="text-left">ロビー名: {{ lobby.lobby_name }}</p>
+                <p class="text-left">作成者: {{ lobby.user_name }}</p>
+                <p class="text-left">作成日時: {{ lobby.created_at }}</p>
+                <p class="text-left">参加人数: {{ lobby.participants }}</p>
+                <form action="join" method="POST">
+                    <input type="hidden" name="lobby_id" value="{{ lobby.id }}">
+                    <input type="submit" value="参加" class="border-2 border-gray-300 rounded-md p-2 m-2">
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
